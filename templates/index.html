@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Proyecto-ALS</title>
+</head>
+<body>
+    {% if canciones.count() > 0 %}
+        {% for cancion in canciones %}
+            (<a href="/canciones/elimina?id={{cancion.key.urlsafe() }}">Eliminar</a>)
+            (<a href="/canciones/modifica?id={{cancion.key.urlsafe() }}">Modificar</a>)
+            (<a href="/comentarios/list?id={{cancion.key.urlsafe() }}">prys</a>)
+
+          <b>{{ cancion.titulo }}</b> {{ cancion.artista }}
+        {% endfor %}
+    {% else %}
+        <p><b> No hay canciones registradas.</b></p>
+    {% endif %}
+
+    <a href="/canciones/nueva">Nueva Canción</a>
+</body>
+</html>

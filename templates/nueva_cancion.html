@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Canción</title>
+
+    <script>
+        function check()
+        {
+            const edTitulo = document.getElementById("edTitulo");
+            const edArtista = document.getElementById("edArtista");
+            const edEstilo = document.getElementById("edEstilo");
+            const edDuracion = document.getElementById("edDuracion");
+
+            return( edTitulo.value.trim().length > 0 && edArtista.value.trim().length > 0 &&
+                            edEstilo.value.trim().length > 0 && edDuracion.value.trim().length > 0 &&)
+        }
+
+    </script>
+
+
+</head>
+<body>
+    <h1>Nueva Canción</h1>
+    <form id="frmNuevaCancion" method="post" action="/canciones/nueva" onsubmit="return check()">
+
+        <label for="edTitulo" >Título: </label>
+        <input type="text" id="edTitulo" name="edTitulo" placeholder="Escribe un titulo para la canción...">
+        <br><br>
+
+        <label for="edArtista"> Artista: </label>
+        <input type="text" id="edArtista" name="edArtista" placeholder="Escribe un artista para la canción...">
+        <br><br>
+
+         <label for="edEstilo"> Estilo: </label>
+        <select id="edEstilo" name="edEstilo" >
+            <option value="Hip-Hop">Hip-Hop</option>
+            <option value="Reggaeton">Reggaeton</option>
+            <option value="Rock">Rock</option>
+            <option value="Metal">Metal</option>
+            <option value="Pop">Pop</option>
+       </select>
+        <br><br>
+
+        <label for="edDuracion"> Duración: </label>
+        <input type="number" id="edDuracion" name="edDuracion" placeholder="Escribe la duración...">
+        <br><br>
+
+        <p><input type="submit" value="Crear"></p>
+
+    </form>
+
+</body>
+</html>
