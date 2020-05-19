@@ -17,31 +17,48 @@
 
 import webapp2
 
-from model.cancion import Cancion
 from webapp2_extras import jinja2
 
+from model.comentario import Comentario
+from model.cancion import Cancion
 from webapp2_extras.users import users
 
 
-class MainHandler(webapp2.RequestHandler):
+
+
+class ComentarioHandler(webapp2.RequestHandler):
     def get(self):
+
         usr = users.get_current_user()
-        canciones = Cancion.query()
+        cancion = Cancion.recupera(self.request)
 
         if usr:
+            comentarios = Comentario.query(Comentario.cancion==cancion.key).order(-Comentario.hora)
             url_usr = users.create_logout_url("/")
-        else:
+
+
+
+
+            valores_plantilla = {
+            "cancion" : cancion,
+            "comentarios": comentarios,
+            "usr": usr,
+            "url_usr" :url_usr
+             }
+
+            jinja = jinja2.get_jinja2(app=self.app)
+            self.response.write(jinja.render_template("comentario.html", **valores_plantilla))
+
+        else :
             url_usr = users.create_login_url("/")
+            return self.redirect("/")
 
-        valores_plantilla = {
-            "canciones" : canciones,
-             "usr" : usr,
-             "url_usr" : url_usr
-        }
 
-        jinja = jinja2.get_jinja2(app=self.app)
-        self.response.write(jinja.render_template("index.html",**valores_plantilla))
+
+
+
+
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/canciones/comentarios', ComentarioHandler)
 ], debug=True)

@@ -4,12 +4,21 @@ import webapp2
 from webapp2_extras import jinja2
 
 from model.cancion import Cancion
+from webapp2_extras.users import users
 
 class NuevaCancionHandler(webapp2.RequestHandler):
     def get(self):
 
-        valores_plantilla = {
+        usr = users.get_current_user()
 
+        if usr:
+            url_usr = users.create_logout_url("/")
+        else:
+            url_usr = users.create_login_url("/")
+
+        valores_plantilla = {
+            "usr": usr,
+            "url_usr": url_usr
         }
 
         jinja = jinja2.get_jinja2(app=self.app)
@@ -17,7 +26,6 @@ class NuevaCancionHandler(webapp2.RequestHandler):
 
 
     def post(self):
-
         titulo = self.request.get("edTitulo","")
         artista = self.request.get("edArtista","")
         estilo = self.request.get("edEstilo","")

@@ -1,26 +1,3 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Proyecto-ALS</title>
-</head>
-<body>
-    {% if canciones.count() > 0 %}
-        {% for cancion in canciones %}
-            (<a href="/canciones/elimina?id={{cancion.key.urlsafe() }}">Eliminar</a>)
-            (<a href="/canciones/modifica?id={{cancion.key.urlsafe() }}">Modificar</a>)
-            (<a href="/comentarios/list?id={{cancion.key.urlsafe() }}">prys</a>)
-
-          <b>{{ cancion.titulo }}</b> {{ cancion.artista }}
-        {% endfor %}
-    {% else %}
-        <p><b> No hay canciones registradas.</b></p>
-    {% endif %}
-
-    <a href="/canciones/nueva">Nueva Canción</a>
-</body>
-</html>
--->
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,32 +17,20 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css">
-        <script>
-        function check()
-        {
 
-            const buscarTitulo = document.getElementById("buscarTitulo");
-
-            return ( buscarTitulo.value.trim().length > 0
-            );
-
-        }
-    </script>
 
     </head>
     <body id="page-top">
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand js-scroll-trigger" href="#page-top">Geniius</a>
+                <a class="navbar-brand js-scroll-trigger" href="/">Geniius</a>
 
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu<i class="fas fa-bars ml-1"></i></button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto">
-                        {% if usr %}
-                        <form action="canciones/buscar" method="post" onsubmit="return checkBusqueda()"><li class="nav-item"><input name="buscarTitulo" type="text" placeholder="Buscar titulo, canción..." id="buscarTitulo"> <button type="submit" style="background-color: transparent;border: none;color:#fec503"><i class="fas fa-search"></i></button></li>
-                        </form>
 
+                         {% if usr %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_usr }}">Log Out</a></li>
                         {% else %}
                         <li class="nav-item"><a class="nav-link js-scroll-trigger" href="{{ url_usr }}">Log In</a></li>
@@ -76,11 +41,10 @@
             </div>
         </nav>
         <!-- Masthead-->
-        <header class="masthead">
+        <header class="masthead" style="background-image: url(/assets/img/Amaral.jpg);">
             <div class="container">
-                <div class="masthead-subheading">Bienvenido al estudio!</div>
-                <div class="masthead-heading text-light">Adéntrate en el mundo de la música</div>
-                <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="/canciones/nueva">Nueva Canción</a>
+                <div class="masthead-subheading"></div>
+                <div class="masthead-heading text-light">Lista de canciones encontradas</div>
             </div>
         </header>
 
@@ -90,11 +54,11 @@
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text">Canciones</h2>
-                    <h3 class="section-subheading text-muted">Los mejores éxitos de ayer y de hoy...</h3>
+                    <h2 class="section-heading text">Canciones encontradas: </h2>
+                    <h3 class="section-subheading mb-4" style="font-size: x-large; color:grey"> "{{ buscarTitulo }}" </h3>
                 </div>
                 <div class="row">
-                    {% if canciones.count() > 0 %}
+                    {% if canciones|length > 0 %}
                 {% for cancion in canciones %}
                     <div class="col-lg-4 col-sm-6 mb-4">
                         <div class="portfolio-item">

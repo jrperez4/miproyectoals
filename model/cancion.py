@@ -9,3 +9,14 @@ class Cancion(ndb.Model):
     artista = ndb.StringProperty(required=True)
     estilo = ndb.StringProperty(required=True, choices=generos)
     duracion = ndb.IntegerProperty(required=True)
+
+    @staticmethod
+    def recupera(req):
+
+        try:
+            id = req.GET["id"]
+
+        except KeyError:
+            id = ""
+
+        return ndb.Key(urlsafe=id).get()

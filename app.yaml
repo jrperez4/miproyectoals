@@ -12,8 +12,40 @@ handlers:
 - url: /
   script: handlers.main.app
 
+- url: /canciones/comentarios
+  script: handlers.canciones.comentario.app
+  login: required
+
+- url: /comentarios/nuevo
+  script: handlers.comentarios.nuevo.app
+  login: required
+
+- url: /canciones/buscar
+  script: handlers.canciones.buscar.app
+  login: required
+
 - url: /canciones/nueva
   script: handlers.canciones.nueva.app
+  login: required
+
+- url: /assets
+  static_dir: templates/assets
+
+- url: /css
+  static_dir: templates/css
+
+- url: /js
+  static_dir: templates/js
+
+- url: /canciones/assets
+  static_dir: templates/assets
+
+- url: /canciones/css
+  static_dir: templates/css
+
+- url: /canciones/js
+  static_dir: templates/js
+
 
 libraries:
 - name: webapp2
